@@ -54,11 +54,12 @@ A list of technologies used within the project:
 * Java Versión 18.0
 * Maven
 * SpringBoot Web
+* KeyCloak Security
 
 
 ## Installation
 ***
-You will need to use postman to access the endpoints
+You will need to use postman to access the endpoints, you will also need to be authorized
 
 
 ## Diagram
