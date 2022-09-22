@@ -39,7 +39,6 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountDTO create(Long owner, AccountDTO accountDTO) {
-
         var entity = Account.fromDTO(owner, accountDTO);
         var storedMember = accountRepository.save(entity);
 
@@ -78,7 +77,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void delete(long id) {
-
+    public void delete(Long id) {
+        accountRepository.deleteById(id);
     }
 }

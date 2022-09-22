@@ -47,6 +47,22 @@ public class TransactionServiceImpl implements TransactionService {
 
         return transactionDTO.fromEntity(storedMember);
     }
+    @Override
+    public TransactionDTO create(Long sender, Long receiver, String hash, TransactionDTO transactionDTO) {
+        var TransactionDTO1 =  transactionDTO;
+        TransactionDTO1.setSender(sender);
+        TransactionDTO1.setReceiver(receiver);
+        var entity = Transaction.fromDTO(sender, receiver, TransactionDTO1);
+        var storedMember = transactionRepository.save(entity);
+
+        //TOOD Check that funds are sufficient in sender account
+        BigDecimal currentBalance = accountService.returnBalance(sender);
+        BigDecimal amountToSend = entity.getAmount();
+
+        accountService.updateBalance(sender, receiver,amountToSend);
+
+        return transactionDTO.fromEntity(storedMember);
+    }
 
     @Override
     public List<Transaction> findAllBySender(Long sender){

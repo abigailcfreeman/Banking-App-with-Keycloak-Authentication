@@ -18,11 +18,8 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     private Long sender;
-
     private Long receiever;
-
     private BigDecimal amount;
     private String fromAccountName;
     private String toAccountName;

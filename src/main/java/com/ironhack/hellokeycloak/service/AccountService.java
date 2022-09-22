@@ -29,7 +29,7 @@ public interface AccountService {
     //Get balance
     BigDecimal returnBalance(Long owner);
 
-    // DeleteChecking
-    void delete(long id);
+    // Delete account
+    void delete(Long id);
 
 }
