@@ -1,4 +1,5 @@
-package com.ironhack.hellokeycloak.security;
+package com.ironhack.hellokeycloak.config;
+
 
 import org.keycloak.adapters.KeycloakConfigResolver;
 import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;

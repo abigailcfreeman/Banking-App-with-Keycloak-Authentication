@@ -17,10 +17,8 @@ public class TransactionDTO {
 
     @JsonIgnore
     private Long sender;
-
     @JsonIgnore
     private Long receiver;
-
     private BigDecimal amount;
     private String fromAccountName;
     private String toAccountName;
