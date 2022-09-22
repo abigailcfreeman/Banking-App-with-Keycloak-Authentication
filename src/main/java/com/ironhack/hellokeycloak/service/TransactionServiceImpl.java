@@ -1,13 +1,9 @@
 package com.ironhack.hellokeycloak.service;
 
-import com.ironhack.hellokeycloak.DTO.AccountHolderDTO;
 import com.ironhack.hellokeycloak.DTO.TransactionDTO;
-import com.ironhack.hellokeycloak.model.AccountHolder;
 import com.ironhack.hellokeycloak.model.Transaction;
-import com.ironhack.hellokeycloak.repository.AccountHolderRepository;
 import com.ironhack.hellokeycloak.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -47,11 +43,15 @@ public class TransactionServiceImpl implements TransactionService {
         BigDecimal currentBalance = accountService.returnBalance(sender);
         BigDecimal amountToSend = entity.getAmount();
 
-        accountService.updateBalance(sender, amountToSend);
+        accountService.updateBalance(sender, receiver,amountToSend);
 
         return transactionDTO.fromEntity(storedMember);
     }
 
+    @Override
+    public List<Transaction> findAllBySender(Long sender){
+        return transactionRepository.findAllBySender(sender);
+    }
 
     @Override
     public Optional<Transaction> findById(long id) {

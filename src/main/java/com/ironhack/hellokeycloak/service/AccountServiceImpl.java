@@ -58,9 +58,23 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void updateBalance(Long owner, BigDecimal amount){
-     BigDecimal currentBalance =  accountRepository.findAccountByAccountHolder(owner).get().getBalance();
-     BigDecimal newBalance = currentBalance.subtract(amount);
-        accountRepository.findAccountByAccountHolder(owner).get().setBalance(newBalance);
+     Account account = accountRepository.findAccountByAccountHolder(owner).get();
+     BigDecimal newBalance = account.getBalance().subtract(amount);
+        account.setBalance(newBalance);
+        accountRepository.save(account);
+    }
+
+    @Override
+    public void updateBalance(Long owner, Long receiver, BigDecimal amount){
+        Account sender = accountRepository.findAccountByAccountHolder(owner).get();
+        BigDecimal newBalance = sender.getBalance().subtract(amount);
+        sender.setBalance(newBalance);
+        accountRepository.save(sender);
+
+        Account getter = accountRepository.findAccountByAccountHolder(receiver).get();
+        BigDecimal newBalance2 = getter.getBalance().add(amount);
+        getter.setBalance(newBalance2);
+        accountRepository.save(getter);
     }
 
     @Override

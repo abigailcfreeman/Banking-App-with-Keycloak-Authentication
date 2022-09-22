@@ -63,10 +63,10 @@ public class AdminController {
     }
 
 
-    //CREATE TRANSACTION
-    @PostMapping ("/send-from/{sender}/to/{receiver}/")
-    @ResponseStatus(HttpStatus.OK)
-    public TransactionDTO createTransaction(@PathVariable Long sender, @PathVariable Long receiver, @RequestBody TransactionDTO transactionDTO) {
-        return transactionService.create(sender, receiver, transactionDTO);
+    //GET ALL TRANSACTIONS
+    @GetMapping("/return/transactions")
+    @ResponseStatus(HttpStatus.FOUND)
+    public List<TransactionDTO> findAllTransactions() {
+        return transactionService.findAll();
     }
 }

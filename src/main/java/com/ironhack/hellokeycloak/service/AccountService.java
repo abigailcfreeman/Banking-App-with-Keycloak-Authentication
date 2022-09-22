@@ -20,6 +20,7 @@ public interface AccountService {
 
     //Update balance
     void updateBalance(Long owner, BigDecimal amount);
+    void updateBalance(Long owner, Long receiver, BigDecimal amount);
 
     // CreateNewAccount
     AccountDTO create(Long owner, AccountDTO accountDTO);

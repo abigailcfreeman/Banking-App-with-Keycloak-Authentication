@@ -2,6 +2,7 @@ package com.ironhack.hellokeycloak.DTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ironhack.hellokeycloak.model.Account;
 import com.ironhack.hellokeycloak.model.AccountHolder;
+import com.ironhack.hellokeycloak.model.AccountType;
 import com.ironhack.hellokeycloak.service.AccountHolderService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class AccountDTO {
 
     private BigDecimal balance;
     public LocalDate creationDate;
+    private AccountType accountType;
     private String status;
 
     @JsonIgnore
@@ -32,6 +34,7 @@ public class AccountDTO {
         checkingDtoNew.setBalance(entity.getBalance());
         checkingDtoNew.setCreationDate(entity.getCreationDate());
         checkingDtoNew.setStatus(entity.getStatus());
+        checkingDtoNew.setAccountType(entity.getAccountType());
         checkingDtoNew.setAccountHolder(entity.getAccountHolder());
         return checkingDtoNew;
     }

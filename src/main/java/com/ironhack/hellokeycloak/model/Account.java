@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Optional;
@@ -30,12 +31,16 @@ public class Account {
 
     @Column
     @NotNull
+    @Size(min = 300)
     public BigDecimal balance;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     @Column
     public LocalDate creationDate;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    @Column
+    public AccountType accountType;
 
     @Column
     @NotNull
@@ -47,6 +52,7 @@ public class Account {
         checkingNew.setBalance(dto.getBalance());
         checkingNew.setCreationDate(dto.getCreationDate());
         checkingNew.setStatus(dto.getStatus());
+        checkingNew.setAccountType(dto.getAccountType());
         checkingNew.setAccountHolder(owner);
         return checkingNew;
     }
