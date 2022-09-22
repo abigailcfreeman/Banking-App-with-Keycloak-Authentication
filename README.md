@@ -61,6 +61,9 @@ A list of technologies used within the project:
 ***
 You will need to use postman to access the endpoints, you will also need to be authorized
 
+## Original Project
+***
+https://github.com/J3-PT-Java-Bootcamp/Abigailcfreeman-The-IronBank---Final-Project
 
 ## Diagram
 ***
