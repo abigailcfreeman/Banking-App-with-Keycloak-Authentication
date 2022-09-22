@@ -45,7 +45,6 @@ public class AdminController {
         return accountService.findById(id);
     }
 
-
     //DELETE BANK ACCOUNT BY ID
     @DeleteMapping("/delete/account/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
