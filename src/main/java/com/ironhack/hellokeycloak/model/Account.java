@@ -31,7 +31,6 @@ public class Account {
 
     @Column
     @NotNull
-    @Size(min = 300)
     public BigDecimal balance;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
