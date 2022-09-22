@@ -1,15 +1,9 @@
 package com.ironhack.hellokeycloak.controller;
-import com.ironhack.hellokeycloak.DTO.AccountHolderDTO;
-import com.ironhack.hellokeycloak.DTO.AccountDTO;
-import com.ironhack.hellokeycloak.DTO.ThirdPartyDTO;
-import com.ironhack.hellokeycloak.DTO.TransactionDTO;
+import com.ironhack.hellokeycloak.DTO.*;
 import com.ironhack.hellokeycloak.model.AccountHolder;
 import com.ironhack.hellokeycloak.model.Account;
 import com.ironhack.hellokeycloak.model.Transaction;
-import com.ironhack.hellokeycloak.service.AccountHolderService;
-import com.ironhack.hellokeycloak.service.AccountService;
-import com.ironhack.hellokeycloak.service.ThirdPartyService;
-import com.ironhack.hellokeycloak.service.TransactionService;
+import com.ironhack.hellokeycloak.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -27,9 +21,17 @@ public class AdminController {
     AccountService accountService;
     @Autowired
     TransactionService transactionService;
-
     @Autowired
     ThirdPartyService thirdPartyService;
+    @Autowired
+    AdminService adminService;
+
+    //CREATE ADMIN
+    @PostMapping("/create/admin")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createAdmin(@RequestBody AdminDTO adminDTO) {
+        adminService.create(adminDTO);
+    }
 
     //CREATE BANK ACCOUNT
     @PostMapping("/create/account/{owner}")
