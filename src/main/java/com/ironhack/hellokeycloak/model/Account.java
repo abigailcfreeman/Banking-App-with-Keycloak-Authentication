@@ -30,7 +30,7 @@ public class Account {
 
     @Column
     @NotNull
-    private BigDecimal balance;
+    public BigDecimal balance;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     @Column

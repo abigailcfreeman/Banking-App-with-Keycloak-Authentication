@@ -24,6 +24,8 @@ public interface AccountService {
     // CreateNewAccount
     AccountDTO create(Long owner, AccountDTO accountDTO);
 
+
+    //Get balance
     BigDecimal returnBalance(Long owner);
 
     // DeleteChecking

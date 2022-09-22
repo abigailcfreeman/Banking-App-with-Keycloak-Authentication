@@ -37,14 +37,17 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public TransactionDTO create(Long sender, Long receiver, TransactionDTO transactionDTO) {
-        var entity = Transaction.fromDTO(sender, receiver, transactionDTO);
+       var TransactionDTO1 =  transactionDTO;
+       TransactionDTO1.setSender(sender);
+       TransactionDTO1.setReceiver(receiver);
+        var entity = Transaction.fromDTO(sender, receiver, TransactionDTO1);
         var storedMember = transactionRepository.save(entity);
 
         //TOOD Check that funds are sufficient in sender account
         BigDecimal currentBalance = accountService.returnBalance(sender);
         BigDecimal amountToSend = entity.getAmount();
 
-
+        accountService.updateBalance(sender, amountToSend);
 
         return transactionDTO.fromEntity(storedMember);
     }

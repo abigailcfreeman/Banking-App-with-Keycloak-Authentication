@@ -52,8 +52,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public BigDecimal returnBalance(Long id){
-        return accountRepository.findById(id).get().getBalance();
+    public BigDecimal returnBalance(Long owner){
+        return accountRepository.findAccountByAccountHolder(owner).get().getBalance();
     }
 
     @Override

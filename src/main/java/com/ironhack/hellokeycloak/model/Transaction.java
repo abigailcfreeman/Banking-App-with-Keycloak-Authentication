@@ -34,7 +34,6 @@ public class Transaction {
         transactionNew.setAmount(dto.getAmount());
         transactionNew.setFromAccountName(dto.getFromAccountName());
         transactionNew.setToAccountName(dto.getToAccountName());
-
         return transactionNew;
     }
 

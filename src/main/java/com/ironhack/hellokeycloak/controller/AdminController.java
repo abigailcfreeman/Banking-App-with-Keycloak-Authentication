@@ -64,9 +64,9 @@ public class AdminController {
 
 
     //CREATE TRANSACTION
-    @PostMapping ("/sendfrom/{sender}/to/{receiver}")
+    @PostMapping ("/send-from/{sender}/to/{receiver}/")
     @ResponseStatus(HttpStatus.OK)
-    public TransactionDTO createTransaction(@PathVariable Long receiver, Long sender, @RequestBody TransactionDTO transactionDTO) {
+    public TransactionDTO createTransaction(@PathVariable Long sender, @PathVariable Long receiver, @RequestBody TransactionDTO transactionDTO) {
         return transactionService.create(sender, receiver, transactionDTO);
     }
 }
