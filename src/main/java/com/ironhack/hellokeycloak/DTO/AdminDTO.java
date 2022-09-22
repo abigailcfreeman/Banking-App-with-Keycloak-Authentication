@@ -13,10 +13,12 @@ import lombok.Setter;
 public class AdminDTO {
 
     private String name;
+    private String uuid;
 
         public static AdminDTO fromEntity(Admin entity) {
             var adminDtoNew = new AdminDTO();
             adminDtoNew.setName(entity.getName());
+            adminDtoNew.setUuid(entity.getUuid());
             return adminDtoNew;
         }
 }

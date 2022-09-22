@@ -15,6 +15,9 @@ public interface AccountHolderService {
     // FindByHolderID
     Optional<AccountHolder> findById(long id);
 
+    //Find By Phone
+    Optional<AccountHolder> findByPhone(String phone);
+
     // CreateNewAccountHolder
     AccountHolderDTO create(AccountHolderDTO accountHolderDTO);
 

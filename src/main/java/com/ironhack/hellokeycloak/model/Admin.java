@@ -18,10 +18,12 @@ public class Admin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String uuid;
 
         public static Admin fromDTO(AdminDTO dto){
             var adminNew = new Admin();
             adminNew.setName(dto.getName());
+            adminNew.setUuid(dto.getUuid());
             return adminNew;
         }
 }

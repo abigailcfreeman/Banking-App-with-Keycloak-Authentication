@@ -40,11 +40,14 @@ public class AccountHolder {
     @OneToMany
     List<Account>accounts;
 
+    private String uuid;
+
     public static AccountHolder fromDTO(AccountHolderDTO dto){
         var accountHolderNew = new AccountHolder();
         accountHolderNew.setName(dto.getName());
         accountHolderNew.setDob(dto.getDob());
         accountHolderNew.setPhone(dto.getPhone());
+        accountHolderNew.setUuid(dto.getUuid());
 
         var address = new Address();
         if (dto.getStreet() != null) address.setStreet(dto.getStreet());

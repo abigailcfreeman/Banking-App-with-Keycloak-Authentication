@@ -1,12 +1,14 @@
 package com.ironhack.hellokeycloak.service;
 
 import com.ironhack.hellokeycloak.DTO.AccountHolderDTO;
+import com.ironhack.hellokeycloak.model.Account;
 import com.ironhack.hellokeycloak.model.AccountHolder;
 import com.ironhack.hellokeycloak.repository.AccountHolderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -52,4 +54,9 @@ public class AccountHolderServiceImpl implements AccountHolderService {
     public void delete(long id) {
 
     }
+    @Override
+    public Optional<AccountHolder> findByPhone(String phone){
+        return accountHolderRepository.findAccountHolderByPhone(phone);
+    }
+
 }

@@ -15,6 +15,7 @@ public class AccountHolderDTO {
     private String name;
     public Date dob;
     private String phone;
+    private String uuid;
 
     //Address
     private String street;
@@ -26,6 +27,7 @@ public class AccountHolderDTO {
         accountDtoNew.setName(entity.getName());
         accountDtoNew.setDob(entity.getDob());
         accountDtoNew.setPhone(entity.getPhone());
+        accountDtoNew.setUuid(entity.getUuid());
 
         if (entity.getAddress() != null) {
             accountDtoNew.setStreet(entity.getAddress().getStreet());
