@@ -1,8 +1,10 @@
 package com.ironhack.hellokeycloak.service;
 
 import com.ironhack.hellokeycloak.DTO.AccountHolderDTO;
+import com.ironhack.hellokeycloak.model.Account;
 import com.ironhack.hellokeycloak.model.AccountHolder;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,4 +32,6 @@ public interface AccountHolderService {
     // DeleteAccountHolder
     void delete(long id);
 
+    //Change name
+    void changeName(Principal principal, AccountHolder name);
 }

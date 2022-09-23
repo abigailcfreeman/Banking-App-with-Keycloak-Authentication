@@ -1,6 +1,7 @@
 package com.ironhack.hellokeycloak.controller;
 
 import com.ironhack.hellokeycloak.DTO.TransactionDTO;
+import com.ironhack.hellokeycloak.model.AccountHolder;
 import com.ironhack.hellokeycloak.model.Transaction;
 import com.ironhack.hellokeycloak.service.AccountHolderService;
 import com.ironhack.hellokeycloak.service.AccountService;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.security.Principal;
-import java.util.Optional;
+import java.util.List;
 
 @RestController
 @RequestMapping("/member")
@@ -34,14 +35,21 @@ public class AccountHolderController {
     //GET ALL TRANSACTIONS FROM ACCOUNT
     @GetMapping("/return/transactions")
     @ResponseStatus(HttpStatus.FOUND)
-    public Optional<Transaction> findAllTransactionsById(Principal principal) {
+    public List<Transaction> findAllTransactionsById(Principal principal) {
         return transactionService.findAllbyUuid(principal);
     }
 
     //CREATE TRANSACTION
-    @PostMapping ("/send-from/{sender}/to/{receiver}/")
+    @PostMapping ("/send-to/{receiver}/")
     @ResponseStatus(HttpStatus.OK)
-    public TransactionDTO createTransaction(@PathVariable Long sender, @PathVariable Long receiver, @RequestBody TransactionDTO transactionDTO) {
-        return transactionService.create(sender, receiver, transactionDTO);
+    public TransactionDTO createTransaction(Principal principal, @PathVariable Long receiver, @RequestBody TransactionDTO transactionDTO) {
+        return transactionService.create(principal, receiver, transactionDTO);
+    }
+
+    //CHANGE NAME PATCH
+    @PatchMapping("/name")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void changeName(Principal principal, @RequestBody AccountHolder name) {
+        accountHolderService.changeName(principal, name);
     }
 }

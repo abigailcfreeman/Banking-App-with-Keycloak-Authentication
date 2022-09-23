@@ -4,11 +4,12 @@ import com.ironhack.hellokeycloak.DTO.AccountHolderDTO;
 import com.ironhack.hellokeycloak.model.Account;
 import com.ironhack.hellokeycloak.model.AccountHolder;
 import com.ironhack.hellokeycloak.repository.AccountHolderRepository;
+import com.ironhack.hellokeycloak.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,12 @@ public class AccountHolderServiceImpl implements AccountHolderService {
 
     @Autowired
     AccountHolderRepository accountHolderRepository;
+
+    @Autowired
+    AccountRepository accountRepository;
+
+    @Autowired
+    AccountService accountService;
 
     @Override
     public List<AccountHolderDTO> findAll() {
@@ -64,4 +71,11 @@ public class AccountHolderServiceImpl implements AccountHolderService {
         return Optional.ofNullable(accountHolderRepository.findAccountHolderByUuid(uuid));
     }
 
+    @Override
+    public void changeName(Principal principal, AccountHolder name){
+       String newName = name.getName();
+     AccountHolder accountHolder = accountHolderRepository.findAccountHolderByUuid(principal.getName());
+        accountHolder.setName(newName);
+        accountHolderRepository.save(accountHolder);
+    }
 }

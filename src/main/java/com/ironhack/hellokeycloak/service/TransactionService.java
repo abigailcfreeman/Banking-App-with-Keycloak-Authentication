@@ -18,10 +18,11 @@ public interface TransactionService {
     List<Transaction> findAllBySender(Long sender);
     // CreateTransaction
     TransactionDTO create(Long sender, Long receiver, TransactionDTO transactionDTO);
+    TransactionDTO create(Principal principal, Long receiver, TransactionDTO transactionDTO);
 
     // Third-party CreateTransaction
     TransactionDTO create(Long sender, Long receiver, String hash, TransactionDTO transactionDTO);
 
     //Find all by uuid
-    Optional<Transaction> findAllbyUuid(Principal principal);
+    List<Transaction> findAllbyUuid(Principal principal);
 }

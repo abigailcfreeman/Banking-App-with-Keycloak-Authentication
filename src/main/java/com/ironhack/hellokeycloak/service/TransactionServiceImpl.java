@@ -4,6 +4,7 @@ import com.ironhack.hellokeycloak.DTO.TransactionDTO;
 import com.ironhack.hellokeycloak.model.AccountHolder;
 import com.ironhack.hellokeycloak.model.Transaction;
 import com.ironhack.hellokeycloak.repository.AccountHolderRepository;
+import com.ironhack.hellokeycloak.repository.AccountRepository;
 import com.ironhack.hellokeycloak.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,8 @@ public class TransactionServiceImpl implements TransactionService {
     @Autowired
     AccountService accountService;
 
+    @Autowired
+    AccountRepository accountRepository;
     @Autowired
     AccountHolderRepository accountHolderRepository;
 
@@ -60,11 +63,28 @@ public class TransactionServiceImpl implements TransactionService {
         TransactionDTO1.setReceiver(receiver);
         var entity = Transaction.fromDTO(sender, receiver, TransactionDTO1);
         var storedMember = transactionRepository.save(entity);
-
         //TOOD Check that funds are sufficient in sender account
         BigDecimal currentBalance = accountService.returnBalance(sender);
         BigDecimal amountToSend = entity.getAmount();
+        accountService.updateBalance(sender, receiver,amountToSend);
 
+        return transactionDTO.fromEntity(storedMember);
+    }
+
+    @Override
+    public TransactionDTO create(Principal principal, Long receiver, TransactionDTO transactionDTO) {
+        Long sender = accountHolderService.findAccountByUuid(principal.getName()).get().getId();
+        var TransactionDTO1 =  transactionDTO;
+        TransactionDTO1.setSender(sender);
+        TransactionDTO1.setReceiver(receiver);
+        var entity = Transaction.fromDTO(sender, receiver, TransactionDTO1);
+        var storedMember = transactionRepository.save(entity);
+        //TOOD Check that funds are sufficient in sender account
+        BigDecimal currentBalance = accountService.returnBalance(sender);
+        BigDecimal amountToSend = entity.getAmount();
+        if(currentBalance.compareTo(amountToSend)< 0){
+            System.out.println("no");
+        }
         accountService.updateBalance(sender, receiver,amountToSend);
 
         return transactionDTO.fromEntity(storedMember);
@@ -81,9 +101,9 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public Optional<Transaction> findAllbyUuid(Principal principal){
+    public List<Transaction> findAllbyUuid(Principal principal){
        AccountHolder accountHolder =  accountHolderRepository.findAccountHolderByUuid(principal.getName());
-        return transactionRepository.findById(accountHolder.getId());
+        return transactionRepository.findAllBySender(accountHolder.getId());
     }
 
 }
