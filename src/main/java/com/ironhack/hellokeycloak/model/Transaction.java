@@ -18,7 +18,13 @@ public class Transaction {
     private long id;
     private Long sender;
     private Long receiever;
+
+    @AttributeOverrides({
+            @AttributeOverride(name = "amount", column = @Column(name = "balance"))
+    })
+    @Embedded
     private Money amount;
+
     private String fromAccountName;
     private String toAccountName;
 
@@ -26,7 +32,8 @@ public class Transaction {
         var transactionNew = new Transaction();
         transactionNew.setSender(sender);
         transactionNew.setReceiever(receiver);
-        transactionNew.setAmount(dto.getAmount());
+        var amount = new Money(dto.getAmount());
+        transactionNew.setAmount(amount);
         transactionNew.setFromAccountName(dto.getFromAccountName());
         transactionNew.setToAccountName(dto.getToAccountName());
         return transactionNew;

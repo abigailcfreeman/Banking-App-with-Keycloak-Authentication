@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,14 +19,16 @@ public class TransactionDTO {
     private Long sender;
     @JsonIgnore
     private Long receiver;
-    private Money amount;
+    private BigDecimal amount;
     private String fromAccountName;
     private String toAccountName;
 
 
     public static TransactionDTO fromEntity(Transaction entity) {
         var transactionNew = new TransactionDTO();
-        transactionNew.setAmount(entity.getAmount());
+        if (entity.getAmount() != null) {
+            transactionNew.setAmount(entity.getAmount().getAmount());
+        }
         transactionNew.setFromAccountName(entity.getFromAccountName());
         transactionNew.setToAccountName(entity.getToAccountName());
 

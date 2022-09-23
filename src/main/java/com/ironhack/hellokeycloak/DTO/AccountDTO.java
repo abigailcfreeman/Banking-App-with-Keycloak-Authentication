@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Getter
@@ -16,7 +17,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class AccountDTO {
 
-    private Money balance;
+    private BigDecimal balance;
     public LocalDate creationDate;
     private AccountType accountType;
     private String status;
@@ -27,13 +28,16 @@ public class AccountDTO {
 
     public static AccountDTO fromEntity(Account entity) {
         var checkingDtoNew = new AccountDTO();
-        checkingDtoNew.setBalance(entity.getBalance());
+        if (entity.getBalance() != null) {
+            checkingDtoNew.setBalance(entity.getBalance().getAmount());
+        }
         checkingDtoNew.setCreationDate(entity.getCreationDate());
         checkingDtoNew.setStatus(entity.getStatus());
         checkingDtoNew.setAccountType(entity.getAccountType());
         checkingDtoNew.setAccountHolder(entity.getAccountHolder());
         return checkingDtoNew;
     }
+
 
 
 }

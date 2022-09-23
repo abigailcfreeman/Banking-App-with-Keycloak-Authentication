@@ -47,12 +47,12 @@ public class Account {
 
     public static Account fromDTO(Long owner, AccountDTO dto){
         var checkingNew = new Account();
-        checkingNew.setBalance(dto.getBalance());
+        var balance = new Money(dto.getBalance());
+        checkingNew.setBalance(balance);
         checkingNew.setCreationDate(dto.getCreationDate());
         checkingNew.setStatus(dto.getStatus());
         checkingNew.setAccountType(dto.getAccountType());
         checkingNew.setAccountHolder(owner);
         return checkingNew;
     }
-
 }

@@ -18,7 +18,7 @@ public class Money {
 
     private static final Currency USD = Currency.getInstance("USD");
     private static final RoundingMode DEFAULT_ROUNDING = RoundingMode.HALF_EVEN;
-    private final Currency currency = null;
+    private final Currency currency = USD;
     private BigDecimal amount;
 
     /**
