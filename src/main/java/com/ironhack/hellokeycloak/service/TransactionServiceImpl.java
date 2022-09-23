@@ -1,5 +1,6 @@
 package com.ironhack.hellokeycloak.service;
 
+import com.github.fge.Frozen;
 import com.ironhack.hellokeycloak.DTO.TransactionDTO;
 import com.ironhack.hellokeycloak.model.AccountHolder;
 import com.ironhack.hellokeycloak.model.Transaction;
@@ -50,7 +51,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         BigDecimal currentBalance = accountService.returnBalance(sender);
         BigDecimal amountToSend = entity.getAmount();
-        if(currentBalance.compareTo(amountToSend) < 0){
+        if(currentBalance.compareTo(amountToSend) < 0 || accountService.findByOwnerId(sender).get().getStatus() == "frozen"){
             try {
                 throw new Exception("no");
             } catch (Exception e) {
@@ -73,7 +74,7 @@ public class TransactionServiceImpl implements TransactionService {
         var storedMember = transactionRepository.save(entity);
         BigDecimal currentBalance = accountService.returnBalance(sender);
         BigDecimal amountToSend = entity.getAmount();
-        if(currentBalance.compareTo(amountToSend) < 0){
+        if(currentBalance.compareTo(amountToSend) < 0 || accountService.findByOwnerId(sender).get().getStatus() == "frozen"){
             try {
                 throw new Exception("no");
             } catch (Exception e) {
@@ -99,7 +100,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         BigDecimal currentBalance = accountService.returnBalance(sender);
         BigDecimal amountToSend = entity.getAmount();
-        if(currentBalance.compareTo(amountToSend) < 0){
+        if(currentBalance.compareTo(amountToSend) < 0 || accountService.findByOwnerId(sender).get().getStatus() == "frozen"){
             try {
                 throw new Exception("no");
             } catch (Exception e) {
