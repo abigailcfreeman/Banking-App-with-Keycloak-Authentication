@@ -82,10 +82,17 @@ public class TransactionServiceImpl implements TransactionService {
         //TOOD Check that funds are sufficient in sender account
         BigDecimal currentBalance = accountService.returnBalance(sender);
         BigDecimal amountToSend = entity.getAmount();
-        if(currentBalance.compareTo(amountToSend)< 0){
-            System.out.println("no");
+        if(currentBalance.compareTo(amountToSend) < 0){
+            try {
+                throw new Exception("no");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
-        accountService.updateBalance(sender, receiver,amountToSend);
+        else{
+            accountService.updateBalance(sender, receiver,amountToSend);
+        }
+
 
         return transactionDTO.fromEntity(storedMember);
     }
