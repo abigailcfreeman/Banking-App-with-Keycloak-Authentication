@@ -48,11 +48,19 @@ public class TransactionServiceImpl implements TransactionService {
         var entity = Transaction.fromDTO(sender, receiver, TransactionDTO1);
         var storedMember = transactionRepository.save(entity);
 
-        //TOOD Check that funds are sufficient in sender account
         BigDecimal currentBalance = accountService.returnBalance(sender);
         BigDecimal amountToSend = entity.getAmount();
+        if(currentBalance.compareTo(amountToSend) < 0){
+            try {
+                throw new Exception("no");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        else{
+            accountService.updateBalance(sender, receiver,amountToSend);
+        }
 
-        accountService.updateBalance(sender, receiver,amountToSend);
 
         return transactionDTO.fromEntity(storedMember);
     }
@@ -63,10 +71,19 @@ public class TransactionServiceImpl implements TransactionService {
         TransactionDTO1.setReceiver(receiver);
         var entity = Transaction.fromDTO(sender, receiver, TransactionDTO1);
         var storedMember = transactionRepository.save(entity);
-        //TOOD Check that funds are sufficient in sender account
         BigDecimal currentBalance = accountService.returnBalance(sender);
         BigDecimal amountToSend = entity.getAmount();
-        accountService.updateBalance(sender, receiver,amountToSend);
+        if(currentBalance.compareTo(amountToSend) < 0){
+            try {
+                throw new Exception("no");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        else{
+            accountService.updateBalance(sender, receiver,amountToSend);
+        }
+
 
         return transactionDTO.fromEntity(storedMember);
     }
@@ -79,7 +96,7 @@ public class TransactionServiceImpl implements TransactionService {
         TransactionDTO1.setReceiver(receiver);
         var entity = Transaction.fromDTO(sender, receiver, TransactionDTO1);
         var storedMember = transactionRepository.save(entity);
-        //TOOD Check that funds are sufficient in sender account
+
         BigDecimal currentBalance = accountService.returnBalance(sender);
         BigDecimal amountToSend = entity.getAmount();
         if(currentBalance.compareTo(amountToSend) < 0){
