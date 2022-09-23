@@ -1,15 +1,24 @@
 package com.ironhack.hellokeycloak.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Embeddable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Currency;
 
+@Embeddable
+@Setter
+@Getter
+@Access(AccessType.FIELD)
 public class Money {
 
     private static final Currency USD = Currency.getInstance("USD");
     private static final RoundingMode DEFAULT_ROUNDING = RoundingMode.HALF_EVEN;
-
-    private final Currency currency;
+    private final Currency currency = null;
     private BigDecimal amount;
 
     /**
@@ -17,14 +26,13 @@ public class Money {
      **/
 
     public Money(BigDecimal amount, Currency currency, RoundingMode rounding) {
-        this.currency = currency;
         setAmount(amount.setScale(currency.getDefaultFractionDigits(), rounding));
     }
 
     /**
      * Class constructor specifying amount, and currency. Uses default RoundingMode HALF_EVEN.
      **/
-    public Money(BigDecimal amount, Currency currency) {
+    public Money(BigDecimal amount, Currency currency, Currency currency1) {
         this(amount, currency, DEFAULT_ROUNDING);
     }
 
@@ -33,6 +41,10 @@ public class Money {
      **/
     public Money(BigDecimal amount) {
         this(amount, USD, DEFAULT_ROUNDING);
+    }
+
+    public Money() {
+
     }
 
     public BigDecimal increaseAmount(Money money) {

@@ -9,10 +9,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Optional;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,9 +26,11 @@ public class Account {
     @Column(name="account_holder_id")
     private Long accountHolder;
 
-    @Column
-    @NotNull
-    public BigDecimal balance;
+    @AttributeOverrides({
+            @AttributeOverride(name = "amount", column = @Column(name = "balance"))
+    })
+    @Embedded
+    public Money balance;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     @Column

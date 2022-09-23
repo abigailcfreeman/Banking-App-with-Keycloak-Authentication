@@ -3,6 +3,7 @@ package com.ironhack.hellokeycloak.service;
 import com.github.fge.Frozen;
 import com.ironhack.hellokeycloak.DTO.TransactionDTO;
 import com.ironhack.hellokeycloak.model.AccountHolder;
+import com.ironhack.hellokeycloak.model.Money;
 import com.ironhack.hellokeycloak.model.Transaction;
 import com.ironhack.hellokeycloak.repository.AccountHolderRepository;
 import com.ironhack.hellokeycloak.repository.AccountRepository;
@@ -49,9 +50,9 @@ public class TransactionServiceImpl implements TransactionService {
         var entity = Transaction.fromDTO(sender, receiver, TransactionDTO1);
         var storedMember = transactionRepository.save(entity);
 
-        BigDecimal currentBalance = accountService.returnBalance(sender);
-        BigDecimal amountToSend = entity.getAmount();
-        if(currentBalance.compareTo(amountToSend) < 0 || accountService.findByOwnerId(sender).get().getStatus() == "frozen"){
+        Money currentBalance = accountService.returnBalance(sender);
+        Money amountToSend = entity.getAmount();
+        if(currentBalance.getAmount().compareTo(amountToSend.getAmount()) < 0 || accountService.findByOwnerId(sender).get().getStatus() == "frozen"){
             try {
                 throw new Exception("no");
             } catch (Exception e) {
@@ -59,7 +60,7 @@ public class TransactionServiceImpl implements TransactionService {
             }
         }
         else{
-            accountService.updateBalance(sender, receiver,amountToSend);
+            accountService.updateBalance(sender, receiver,amountToSend.getAmount());
         }
 
 
@@ -72,9 +73,9 @@ public class TransactionServiceImpl implements TransactionService {
         TransactionDTO1.setReceiver(receiver);
         var entity = Transaction.fromDTO(sender, receiver, TransactionDTO1);
         var storedMember = transactionRepository.save(entity);
-        BigDecimal currentBalance = accountService.returnBalance(sender);
-        BigDecimal amountToSend = entity.getAmount();
-        if(currentBalance.compareTo(amountToSend) < 0 || accountService.findByOwnerId(sender).get().getStatus() == "frozen"){
+        Money currentBalance = accountService.returnBalance(sender);
+        Money amountToSend = entity.getAmount();
+        if(currentBalance.getAmount().compareTo(amountToSend.getAmount()) < 0 || accountService.findByOwnerId(sender).get().getStatus() == "frozen"){
             try {
                 throw new Exception("no");
             } catch (Exception e) {
@@ -82,7 +83,7 @@ public class TransactionServiceImpl implements TransactionService {
             }
         }
         else{
-            accountService.updateBalance(sender, receiver,amountToSend);
+            accountService.updateBalance(sender, receiver,amountToSend.getAmount());
         }
 
 
@@ -98,9 +99,9 @@ public class TransactionServiceImpl implements TransactionService {
         var entity = Transaction.fromDTO(sender, receiver, TransactionDTO1);
         var storedMember = transactionRepository.save(entity);
 
-        BigDecimal currentBalance = accountService.returnBalance(sender);
-        BigDecimal amountToSend = entity.getAmount();
-        if(currentBalance.compareTo(amountToSend) < 0 || accountService.findByOwnerId(sender).get().getStatus() == "frozen"){
+        Money currentBalance = accountService.returnBalance(sender);
+        Money amountToSend = entity.getAmount();
+        if(currentBalance.getAmount().compareTo(amountToSend.getAmount()) < 0 || accountService.findByOwnerId(sender).get().getStatus() == "frozen"){
             try {
                 throw new Exception("no");
             } catch (Exception e) {
@@ -108,7 +109,7 @@ public class TransactionServiceImpl implements TransactionService {
             }
         }
         else{
-            accountService.updateBalance(sender, receiver,amountToSend);
+            accountService.updateBalance(sender, receiver,amountToSend.getAmount());
         }
 
 

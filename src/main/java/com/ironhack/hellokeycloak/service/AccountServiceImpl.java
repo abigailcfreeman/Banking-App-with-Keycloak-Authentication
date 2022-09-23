@@ -3,6 +3,7 @@ package com.ironhack.hellokeycloak.service;
 import com.ironhack.hellokeycloak.DTO.AccountDTO;
 import com.ironhack.hellokeycloak.model.Account;
 import com.ironhack.hellokeycloak.model.AccountHolder;
+import com.ironhack.hellokeycloak.model.Money;
 import com.ironhack.hellokeycloak.repository.AccountHolderRepository;
 import com.ironhack.hellokeycloak.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,26 +58,28 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public BigDecimal returnBalance(Principal principal){
+    public Money returnBalance(Principal principal){
      AccountHolder accountHolder =  accountHolderRepository.findAccountHolderByUuid(principal.getName());
         return accountRepository.findAccountByAccountHolder(accountHolder.getId()).get().getBalance();
     }
 
     @Override
-    public BigDecimal returnBalance(Long owner){
+    public Money returnBalance(Long owner){
         return accountRepository.findAccountByAccountHolder(owner).get().getBalance();
     }
 
     @Override
     public void updateBalance(Long owner, Long receiver, BigDecimal amount){
         Account sender = accountRepository.findAccountByAccountHolder(owner).get();
-        BigDecimal newBalance = sender.getBalance().subtract(amount);
-        sender.setBalance(newBalance);
+        BigDecimal newBalance = sender.getBalance().getAmount().subtract(amount);
+        Money money = new Money(newBalance);
+        sender.setBalance(money);
         accountRepository.save(sender);
 
         Account getter = accountRepository.findAccountByAccountHolder(receiver).get();
-        BigDecimal newBalance2 = getter.getBalance().add(amount);
-        getter.setBalance(newBalance2);
+        BigDecimal newBalance2 = getter.getBalance().getAmount().add(amount);
+        Money money2 = new Money(newBalance2);
+        getter.setBalance(money2);
         accountRepository.save(getter);
     }
 

@@ -1,18 +1,14 @@
 package com.ironhack.hellokeycloak.DTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ironhack.hellokeycloak.model.Account;
-import com.ironhack.hellokeycloak.model.AccountHolder;
 import com.ironhack.hellokeycloak.model.AccountType;
-import com.ironhack.hellokeycloak.service.AccountHolderService;
+import com.ironhack.hellokeycloak.model.Money;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Getter
 @Setter
@@ -20,7 +16,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class AccountDTO {
 
-    private BigDecimal balance;
+    private Money balance;
     public LocalDate creationDate;
     private AccountType accountType;
     private String status;

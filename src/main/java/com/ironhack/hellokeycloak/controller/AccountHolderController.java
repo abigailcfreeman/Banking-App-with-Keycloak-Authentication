@@ -2,6 +2,7 @@ package com.ironhack.hellokeycloak.controller;
 
 import com.ironhack.hellokeycloak.DTO.TransactionDTO;
 import com.ironhack.hellokeycloak.model.AccountHolder;
+import com.ironhack.hellokeycloak.model.Money;
 import com.ironhack.hellokeycloak.model.Transaction;
 import com.ironhack.hellokeycloak.service.AccountHolderService;
 import com.ironhack.hellokeycloak.service.AccountService;
@@ -28,7 +29,7 @@ public class AccountHolderController {
     //GET BALANCE
     @GetMapping("/balance")
     @ResponseStatus(HttpStatus.FOUND)
-    public BigDecimal returnBalance(Principal principal) {
+    public Money returnBalance(Principal principal) {
         return accountService.returnBalance(principal);
     }
 

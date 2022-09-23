@@ -1,12 +1,10 @@
 package com.ironhack.hellokeycloak.model;
-import com.ironhack.hellokeycloak.DTO.AccountDTO;
 import com.ironhack.hellokeycloak.DTO.TransactionDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,7 +18,7 @@ public class Transaction {
     private long id;
     private Long sender;
     private Long receiever;
-    private BigDecimal amount;
+    private Money amount;
     private String fromAccountName;
     private String toAccountName;
 
