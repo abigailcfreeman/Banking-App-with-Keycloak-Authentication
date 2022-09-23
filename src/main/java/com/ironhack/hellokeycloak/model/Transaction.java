@@ -32,8 +32,9 @@ public class Transaction {
         var transactionNew = new Transaction();
         transactionNew.setSender(sender);
         transactionNew.setReceiever(receiver);
-        var amount = new Money(dto.getAmount());
-        transactionNew.setAmount(amount);
+        var amount1 = new Money();
+        amount1.setAmount(dto.getAmount());
+        transactionNew.setAmount(amount1);
         transactionNew.setFromAccountName(dto.getFromAccountName());
         transactionNew.setToAccountName(dto.getToAccountName());
         return transactionNew;

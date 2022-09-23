@@ -1,6 +1,8 @@
 package com.ironhack.hellokeycloak.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Access;
@@ -13,6 +15,7 @@ import java.util.Currency;
 @Embeddable
 @Setter
 @Getter
+@NoArgsConstructor
 @Access(AccessType.FIELD)
 public class Money {
 
@@ -43,9 +46,6 @@ public class Money {
         this(amount, USD, DEFAULT_ROUNDING);
     }
 
-    public Money() {
-
-    }
 
     public BigDecimal increaseAmount(Money money) {
         setAmount(this.amount.add(money.amount));
@@ -75,7 +75,7 @@ public class Money {
         return this.amount;
     }
 
-    private void setAmount(BigDecimal amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
