@@ -18,6 +18,9 @@ public interface AccountHolderService {
     //Find By Phone
     Optional<AccountHolder> findByPhone(String phone);
 
+    //Find by UUID
+    Optional<AccountHolder> findAccountByUuid(String uuid);
+
     // CreateNewAccountHolder
     AccountHolderDTO create(AccountHolderDTO accountHolderDTO);
 

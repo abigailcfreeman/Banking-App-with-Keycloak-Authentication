@@ -4,6 +4,7 @@ import com.ironhack.hellokeycloak.DTO.AccountDTO;
 import com.ironhack.hellokeycloak.model.Account;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +26,10 @@ public interface AccountService {
     AccountDTO create(Long owner, AccountDTO accountDTO);
 
 
-    //Get balance
+    //Get balance Authorized
+    BigDecimal returnBalance(Principal principal);
+
+    //Get balance third party
     BigDecimal returnBalance(Long owner);
 
     // Delete account

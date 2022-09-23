@@ -3,6 +3,7 @@ package com.ironhack.hellokeycloak.service;
 import com.ironhack.hellokeycloak.DTO.TransactionDTO;
 import com.ironhack.hellokeycloak.model.Transaction;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,4 +22,6 @@ public interface TransactionService {
     // Third-party CreateTransaction
     TransactionDTO create(Long sender, Long receiver, String hash, TransactionDTO transactionDTO);
 
+    //Find all by uuid
+    Optional<Transaction> findAllbyUuid(Principal principal);
 }

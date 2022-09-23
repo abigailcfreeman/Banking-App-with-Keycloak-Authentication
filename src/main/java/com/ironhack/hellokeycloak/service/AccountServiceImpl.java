@@ -3,11 +3,13 @@ package com.ironhack.hellokeycloak.service;
 import com.ironhack.hellokeycloak.DTO.AccountDTO;
 import com.ironhack.hellokeycloak.model.Account;
 import com.ironhack.hellokeycloak.model.AccountHolder;
+import com.ironhack.hellokeycloak.repository.AccountHolderRepository;
 import com.ironhack.hellokeycloak.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +22,10 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     AccountHolderService accountHolderService;
+
+    @Autowired
+    AccountHolderRepository accountHolderRepository;
+
 
     @Override
     public List<AccountDTO> findAll() {
@@ -48,6 +54,12 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Optional<Account> findById(Long id) {
         return accountRepository.findById(id);
+    }
+
+    @Override
+    public BigDecimal returnBalance(Principal principal){
+     AccountHolder accountHolder =  accountHolderRepository.findAccountHolderByUuid(principal.getName());
+        return accountRepository.findAccountByAccountHolder(accountHolder.getId()).get().getBalance();
     }
 
     @Override

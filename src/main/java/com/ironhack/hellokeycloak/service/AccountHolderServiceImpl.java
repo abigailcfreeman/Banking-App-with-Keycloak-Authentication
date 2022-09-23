@@ -59,4 +59,9 @@ public class AccountHolderServiceImpl implements AccountHolderService {
         return accountHolderRepository.findAccountHolderByPhone(phone);
     }
 
+    @Override
+    public Optional<AccountHolder> findAccountByUuid(String uuid){
+        return Optional.ofNullable(accountHolderRepository.findAccountHolderByUuid(uuid));
+    }
+
 }

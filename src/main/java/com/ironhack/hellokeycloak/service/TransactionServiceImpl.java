@@ -1,12 +1,15 @@
 package com.ironhack.hellokeycloak.service;
 
 import com.ironhack.hellokeycloak.DTO.TransactionDTO;
+import com.ironhack.hellokeycloak.model.AccountHolder;
 import com.ironhack.hellokeycloak.model.Transaction;
+import com.ironhack.hellokeycloak.repository.AccountHolderRepository;
 import com.ironhack.hellokeycloak.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +23,9 @@ public class TransactionServiceImpl implements TransactionService {
     AccountHolderService accountHolderService;
     @Autowired
     AccountService accountService;
+
+    @Autowired
+    AccountHolderRepository accountHolderRepository;
 
     @Override
     public List<TransactionDTO> findAll() {
@@ -74,5 +80,10 @@ public class TransactionServiceImpl implements TransactionService {
         return transactionRepository.findById(id);
     }
 
+    @Override
+    public Optional<Transaction> findAllbyUuid(Principal principal){
+       AccountHolder accountHolder =  accountHolderRepository.findAccountHolderByUuid(principal.getName());
+        return transactionRepository.findById(accountHolder.getId());
+    }
 
 }

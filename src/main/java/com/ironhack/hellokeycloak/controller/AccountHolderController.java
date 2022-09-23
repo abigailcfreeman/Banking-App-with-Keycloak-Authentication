@@ -10,10 +10,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.security.Principal;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/owner")
+@RequestMapping("/member")
 public class AccountHolderController {
     @Autowired
     AccountHolderService accountHolderService;
@@ -24,17 +25,17 @@ public class AccountHolderController {
 
 
     //GET BALANCE
-    @GetMapping("/balance/{id}")
+    @GetMapping("/balance")
     @ResponseStatus(HttpStatus.FOUND)
-    public BigDecimal returnBalance(@PathVariable Long id) {
-        return accountService.returnBalance(id);
+    public BigDecimal returnBalance(Principal principal) {
+        return accountService.returnBalance(principal);
     }
 
     //GET ALL TRANSACTIONS FROM ACCOUNT
-    @GetMapping("/return/transactions/{id}")
+    @GetMapping("/return/transactions")
     @ResponseStatus(HttpStatus.FOUND)
-    public List<Transaction> findAllTransactionsById(@PathVariable Long id) {
-        return transactionService.findAllBySender(id);
+    public Optional<Transaction> findAllTransactionsById(Principal principal) {
+        return transactionService.findAllbyUuid(principal);
     }
 
     //CREATE TRANSACTION
