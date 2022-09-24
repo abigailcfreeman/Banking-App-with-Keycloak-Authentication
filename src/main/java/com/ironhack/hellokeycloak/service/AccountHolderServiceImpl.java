@@ -58,9 +58,7 @@ public class AccountHolderServiceImpl implements AccountHolderService {
     }
 
     @Override
-    public void delete(long id) {
-
-    }
+    public void delete(long id) {}
     @Override
     public Optional<AccountHolder> findByPhone(String phone){
         return accountHolderRepository.findAccountHolderByPhone(phone);

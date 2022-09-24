@@ -23,6 +23,6 @@ public class ThirdPartyController {
     @PostMapping("/send-from/{sender}/to/{receiver}/hash-key/{hash}")
     @ResponseStatus(HttpStatus.OK)
     public TransactionDTO createTransaction(@PathVariable Long sender, @PathVariable Long receiver, @PathVariable String hash, @RequestBody TransactionDTO transactionDTO) {
-        return transactionService.create(sender, receiver, transactionDTO);
+        return transactionService.create(sender, receiver, hash, transactionDTO);
     }
 }
