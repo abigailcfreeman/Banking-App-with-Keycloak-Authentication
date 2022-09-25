@@ -60,7 +60,8 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Money returnBalance(Principal principal){
      AccountHolder accountHolder =  accountHolderRepository.findAccountHolderByUuid(principal.getName());
-        return accountRepository.findAccountByAccountHolder(accountHolder.getId()).get().getBalance();
+
+     return accountRepository.findAccountByAccountHolder(accountHolder.getId()).get().getBalance();
     }
 
     @Override
